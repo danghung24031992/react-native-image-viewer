@@ -180,12 +180,17 @@ export default class ImageViewer extends React.Component<Props, State> {
     }
 
     // 如果已知源图片宽高，直接设置为 success
-    if (image.width && image.height){
-      if(this.props.enablePreload && imageLoaded===false){
+    if (image.width && image.height) {
+      if (this.props.enablePreload && imageLoaded === false) {
         Image.prefetch(image.url)
       }
       imageStatus.width = image.width;
       imageStatus.height = image.height;
+      if (image.width === 0 && image.height === 0) {
+        const widthS = Dimensions.get('window').width
+        imageStatus.width = widthS;
+        imageStatus.height = widthS;
+      }
       imageStatus.status = 'success';
       saveImageSize();
       return;
@@ -196,11 +201,6 @@ export default class ImageViewer extends React.Component<Props, State> {
       (width: number, height: number) => {
         imageStatus.width = width;
         imageStatus.height = height;
-        if(width === 0 && height === 0){
-                const widthS  = Dimensions.get('window').width
-                imageStatus.width = widthS;
-                imageStatus.height = widthS;
-            }
         imageStatus.status = 'success';
         saveImageSize();
       },
@@ -223,8 +223,8 @@ export default class ImageViewer extends React.Component<Props, State> {
   /**
   * 预加载图片
   */
-  public preloadImage = (index: number) =>{
-    if (index < this.state.imageSizes!.length){
+  public preloadImage = (index: number) => {
+    if (index < this.state.imageSizes!.length) {
       this.loadImage(index + 1);
     }
   }
@@ -530,8 +530,8 @@ export default class ImageViewer extends React.Component<Props, State> {
               ...image.props.source
             };
           }
-          if (this.props.enablePreload){
-            this.preloadImage(this.state.currentShowIndex||0)
+          if (this.props.enablePreload) {
+            this.preloadImage(this.state.currentShowIndex || 0)
           }
           return (
             <ImageZoom
