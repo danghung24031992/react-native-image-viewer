@@ -13,7 +13,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  Dimensions
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import styles from './image-viewer.style';
@@ -196,6 +197,11 @@ export default class ImageViewer extends React.Component<Props, State> {
       (width: number, height: number) => {
         imageStatus.width = width;
         imageStatus.height = height;
+        if(width === 0 && height === 0){
+                const widthS  = Dimensions.get('window').width
+                imageStatus.width = widthS;
+                imageStatus.height = widthS;
+            }
         imageStatus.status = 'success';
         saveImageSize();
       },
