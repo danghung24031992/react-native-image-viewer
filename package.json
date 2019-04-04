@@ -18,8 +18,8 @@
   "author": "ascoders",
   "license": "MIT",
   "dependencies": {
-    "react-native-image-pan-zoom": "^2.1.9"
-    "image-size":"^0.7.0"
+    "react-native-image-pan-zoom": "^2.1.9",
+    "image-size": "^0.7.0"
   },
   "peerDependencies": {
     "react": "*",
